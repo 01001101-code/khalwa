@@ -1,0 +1,769 @@
+/* ============================================================
+   خُلوة KHALWA — UX Declutter Layer v1.0
+   تُحمَّل أخيراً (بعد كل الطبقات) لمعالجة الازدحام البصري:
+   - مساحات تنفّس أكبر بين البطاقات والأقسام
+   - تقليل الضوضاء الزخرفية (تدرّجات، ظلال، أنماط دوّارة)
+   - تبسيط التسلسل البصري على الصفحة الرئيسية
+   - تكثيف أقل للعناصر داخل الشبكات
+   - قراءة أوضح للنصوص العربية الطويلة
+   لا تحذف أي وظيفة، بل تعيد ضبط الكثافة البصرية فقط.
+   ============================================================ */
+
+/* ════════════════════════════════════════════════════════════
+   1) مسافات تنفّس أكبر على مستوى التطبيق
+   ════════════════════════════════════════════════════════════ */
+:root{
+  /* مسافات بين البطاقات والأقسام — أكبر */
+  --section-gap:28px;       /* كان 20px */
+  --item-gap:16px;          /* كان 12px */
+  --pad-card:22px;          /* كان 20px */
+  --pad-hero:26px;          /* كان 24px */
+  /* مسافة داخل الشبكات */
+  --grid-gap:14px;
+  --grid-gap-sm:10px;
+}
+
+/* الصفحة نفسها: حشوة أكبر يسار/يمين على الموبايل */
+.page{padding:18px 14px 24px}
+@media (min-width:768px){ .page{padding:24px 22px 32px} }
+
+/* البطاقات: مسافة سفلية أكبر + حشوة أكبر */
+.card{margin-bottom:var(--section-gap);padding:var(--pad-card)}
+.home-block{margin-bottom:var(--section-gap)}
+
+/* عنوان القسم: مسافة أكبر قبله وبعده */
+.sec-label{
+  margin-top:6px;
+  margin-bottom:14px;
+  font-size:14px;
+}
+.sec-label:first-child{margin-top:0}
+.page > .sec-label:first-child{margin-top:2px}
+
+/* ════════════════════════════════════════════════════════════
+   2) تقليل الضوضاء الزخرفية على مستوى الجسم
+   ════════════════════════════════════════════════════════════ */
+/* تقليل شفافية النمط الهندسي الخلفي */
+body::after{opacity:.28}
+[data-theme="dark"] body::after{opacity:.18}
+
+/* تهدئة تدرّج الشبكة (mesh) الخلفي */
+body::before{opacity:.7;animation-duration:36s}
+
+/* ════════════════════════════════════════════════════════════
+   3) الصفحة الرئيسية — إعادة ضبط الكثافة
+   ════════════════════════════════════════════════════════════ */
+
+/* شريط الإحصائيات: بطاقات أصغر وأنظف */
+.stats-strip{gap:8px;margin-bottom:var(--section-gap)}
+.stat-pill{
+  padding:12px 10px;
+  border-radius:var(--r14);
+  box-shadow:none;
+  border:1px solid var(--border);
+}
+.stat-pill:hover{transform:none;box-shadow:var(--sh1)}
+.stat-icon{font-size:18px}
+.stat-val{font-size:18px}
+.stat-lbl{font-size:10px}
+
+/* صفّ البطاقات الروحانية المصغّرة: تباعد أوضح */
+.home-ruhani-row{
+  gap:10px;
+  margin-bottom:var(--section-gap);
+}
+.home-ruhani-col > *{margin-bottom:0!important}
+
+/* شبكة الاختصارات السريعة: حشوة أكبر داخل كل زر */
+.quick-grid{gap:10px;margin-bottom:var(--section-gap)}
+.quick-btn{padding:14px 8px}
+.quick-icon{width:42px;height:42px;margin-bottom:2px}
+.quick-lbl{font-size:11.5px;font-weight:700}
+
+/* بطاقة الراديو في الرئيسية: أبسط وأهدأ */
+.home-radio-card{
+  padding:14px 16px;
+  margin-bottom:var(--section-gap);
+  background:var(--surface);
+}
+.home-radio-header{
+  margin-bottom:10px;
+  padding-bottom:8px;
+}
+.home-radio-card .radio-now-playing{padding:12px;border-radius:var(--r14)}
+
+/* بطاقة آية اليوم: تخفيف الزخرفة الدوّارة */
+.verse-hero{
+  padding:24px 22px;
+  margin-bottom:var(--section-gap);
+}
+.verse-hero::before{opacity:.32;animation-duration:180s}
+.verse-hero::after{font-size:100px;opacity:.04}
+.verse-text{font-size:24px;line-height:2.1;margin-bottom:10px}
+.verse-ref{margin-bottom:6px}
+/* زر "آية أخرى": أبسط */
+.verse-hero > div:first-child > button{
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.22);
+  padding:5px 11px;
+  font-size:11px;
+}
+
+/* بطاقة أوقات الصلاة: تخفيف الزخرفة */
+.prayer-hero{
+  padding:24px 22px;
+  margin-bottom:var(--section-gap);
+}
+.prayer-hero::after{font-size:90px;opacity:.05}
+.prayer-next-name{font-size:28px;margin-bottom:4px}
+.prayer-next-time{font-size:15px}
+.prayer-countdown{
+  top:22px;left:22px;
+  font-size:12px;padding:6px 12px;
+}
+.prayer-grid{gap:8px;margin-top:14px}
+.prayer-pill{padding:10px 6px}
+.pp-name{font-size:10.5px}
+.pp-time{font-size:14px}
+.prayer-actions-row{gap:6px;margin-top:14px}
+.prayer-action-btn{padding:6px 12px;font-size:11.5px}
+
+/* بطاقة الحديث: تبسيط */
+.hadith-card{padding:20px 18px}
+.hadith-text{font-size:17px;line-height:2;margin-bottom:12px}
+.hadith-isnad{font-size:11.5px;padding:8px 12px;margin-bottom:10px}
+.hadith-src{padding-bottom:10px;margin-bottom:0}
+.hadith-benefit{padding:12px;font-size:12.5px;margin-top:10px}
+.hadith-card .btn-ghost{margin-top:12px}
+
+/* بطاقة المزاج: أكثر إيجازاً */
+.mood-card-pro{padding:18px 16px}
+.mood-header{margin-bottom:14px}
+.mood-grid-pro{gap:8px}
+.mood-opt-pro{padding:12px 4px}
+.mood-em-pro{font-size:28px}
+.mood-lbl-pro{font-size:11.5px}
+
+/* ════════════════════════════════════════════════════════════
+   4) صفحة الخلوة — تباعد أوضح بين المجموعات
+   ════════════════════════════════════════════════════════════ */
+.kh-types{gap:8px;margin-bottom:var(--section-gap)}
+.kh-type{padding:12px 4px}
+.kh-type-icon{font-size:24px}
+.kh-type-lbl{font-size:11.5px}
+
+.dur-row{gap:8px;margin-bottom:var(--section-gap)}
+.dur-btn{padding:8px 16px;font-size:12.5px}
+
+.kh-extras{gap:10px;margin-top:var(--section-gap)}
+.kh-extra{padding:12px;font-size:12.5px;min-width:auto}
+
+/* المسبحة: مسافة أكبر فوقها */
+.tasbeeh-card-pro{margin-top:var(--section-gap)!important;padding:20px 18px}
+.tasbeeh-outer{width:170px;height:170px;margin-bottom:18px}
+.tasbeeh-count{font-size:36px}
+
+/* ════════════════════════════════════════════════════════════
+   5) صفحة الأذكار — مجموعات أكثر تنفّساً
+   ════════════════════════════════════════════════════════════ */
+.adhkar-groups{gap:18px;margin-bottom:20px}
+.adhkar-group-title{margin-bottom:10px}
+.adhkar-tabs{gap:8px}
+.adhkar-tab{padding:8px 14px;font-size:12.5px}
+
+.adhkar-card{padding:18px 16px;margin-bottom:var(--item-gap)}
+.adhkar-ar{font-size:20px;line-height:2.1;margin-bottom:12px}
+.adhkar-src{font-size:11px;margin-bottom:6px}
+.adhkar-ben{font-size:11.5px;line-height:1.7;margin-bottom:12px}
+.adhkar-foot{padding-top:10px}
+
+/* شريط التقدّم: أبسط */
+.progress-bar{height:6px;margin-bottom:10px}
+
+/* ════════════════════════════════════════════════════════════
+   6) صفحة المكتبة — تباعد أوضح بين المجموعات
+   ════════════════════════════════════════════════════════════ */
+.lib-group{margin-bottom:22px}
+.lib-group-title{margin-bottom:12px;font-size:12.5px}
+.lib-grid{gap:12px}
+.lib-tile{padding:18px 16px}
+.lib-tile-icon{width:44px;height:44px;margin-bottom:12px}
+.lib-tile-icon svg{width:22px;height:22px}
+.lib-tile-name{font-size:15px;margin-bottom:3px}
+.lib-tile-count{font-size:11.5px}
+
+/* ════════════════════════════════════════════════════════════
+   7) صفحة المحراب (الروحاني) — تقليل كثافة الشبكة
+   ════════════════════════════════════════════════════════════ */
+.ruhani-section{margin-bottom:22px}
+.ruhani-section-h{font-size:14.5px;margin-bottom:12px}
+.ruhani-grid{
+  grid-template-columns:repeat(auto-fill,minmax(155px,1fr));
+  gap:12px;
+}
+.ruhani-tile{padding:20px 12px;gap:8px}
+.ruhani-tile-icon{width:50px;height:50px;font-size:24px;margin-bottom:2px}
+.ruhani-tile-name{font-size:13px}
+.ruhani-tile-desc{font-size:11px;line-height:1.55}
+
+/* ════════════════════════════════════════════════════════════
+   8) صفحة الملف الشخصي — تباعد أوضح
+   ════════════════════════════════════════════════════════════ */
+.profile-hero{padding:24px 20px;margin-bottom:var(--section-gap)}
+.profile-ava{width:78px;height:78px;font-size:34px;margin-bottom:14px}
+.profile-name{font-size:22px}
+.profile-stats{gap:10px;margin-top:18px}
+.pstat{padding:12px 8px}
+.pstat-v{font-size:22px}
+.pstat-l{font-size:10.5px}
+
+.ach-grid{gap:10px;margin-bottom:18px}
+.ach-card{padding:12px 8px}
+.ach-icon{font-size:26px;margin-bottom:6px}
+.ach-title{font-size:11.5px}
+.ach-desc{font-size:10px;line-height:1.4}
+
+.settings-card{margin-bottom:16px}
+.setting-row{padding:14px 16px;gap:12px}
+.setting-icon{width:38px;height:38px}
+.setting-label{font-size:13.5px}
+.setting-value{font-size:11px;margin-top:2px}
+
+/* ════════════════════════════════════════════════════════════
+   9) صفحة القبلة — تباعد أوضح
+   ════════════════════════════════════════════════════════════ */
+.qibla-compass-wrap{width:240px;height:240px}
+.qibla-stats{gap:14px;margin-top:18px}
+.qibla-stat{padding:14px 12px}
+.qibla-stat-val{font-size:20px}
+
+/* ════════════════════════════════════════════════════════════
+   10) صفحة القرآن — تخفيف الكثافة
+   ════════════════════════════════════════════════════════════ */
+.quran-picker-card{margin-bottom:14px}
+.picker-half{padding:14px 14px;gap:10px}
+.picker-icon-wrap{width:42px;height:42px}
+.picker-name{font-size:16px}
+.picker-meta{font-size:11px}
+
+.quran-actions{gap:8px;margin-bottom:14px}
+.qa-btn{padding:7px 13px;font-size:11.5px}
+
+.basmala{font-size:22px;padding:18px;margin-bottom:18px}
+
+.ayah-wrap{padding:20px 16px 14px;margin-bottom:14px}
+.ayah-text{font-size:26px;line-height:2.3}
+.ayah-tafsir{font-size:13.5px;line-height:1.9;padding:12px 14px}
+.ayah-foot{padding-top:10px}
+.ayah-btn{width:36px;height:36px}
+.ayah-num{font-size:11px;padding:4px 10px}
+
+.audio-bar{padding:12px 14px}
+.audio-bar-play,.audio-bar-stop{width:44px;height:44px}
+
+.font-btn{width:38px;height:38px;font-size:14px}
+
+/* ════════════════════════════════════════════════════════════
+   11) الأسماء الحسنى — تباعد أوضح
+   ════════════════════════════════════════════════════════════ */
+.asma-grid{gap:10px}
+.asma-card{padding:14px 10px}
+.asma-n{font-size:10.5px}
+.asma-ar{font-size:19px;margin:4px 0}
+.asma-en{font-size:11px;line-height:1.4}
+
+/* ════════════════════════════════════════════════════════════
+   12) الفقه — بطاقات أوضح
+   ════════════════════════════════════════════════════════════ */
+.fiqh-chapters-grid{gap:12px;margin-top:14px}
+.fiqh-chapter-btn{padding:18px 12px}
+.fiqh-ch-icon{font-size:30px}
+.fiqh-ch-title{font-size:13px}
+.fiqh-ch-count{font-size:11px}
+.fiqh-item{margin-bottom:var(--item-gap)}
+.fiqh-q{padding:14px 16px;font-size:13.5px}
+.fiqh-answer{font-size:13.5px;line-height:1.9;padding-top:12px}
+.fiqh-dalil{font-size:11.5px;padding:8px 12px;line-height:1.75}
+.fiqh-ref{font-size:11px;padding:8px 12px}
+
+/* ════════════════════════════════════════════════════════════
+   13) صفحات القصص — تباعد أوضح
+   ════════════════════════════════════════════════════════════ */
+.story-grid{gap:14px}
+.story-card{padding:18px 16px}
+.story-hd{gap:12px;margin-bottom:14px}
+.story-icon{width:46px;height:46px;font-size:24px}
+.story-name{font-size:16px}
+.story-sub{font-size:12px;margin-top:3px}
+.story-tags{gap:6px;margin-top:8px}
+.story-tag{font-size:11px;padding:3px 10px}
+.story-sec-title{font-size:14.5px;margin-bottom:12px;padding-bottom:8px}
+.story-sec-body{font-size:14.5px;line-height:2;margin-bottom:16px}
+.story-sec-body p{margin-bottom:12px}
+.story-lesson{padding:14px;font-size:13.5px;line-height:1.85;gap:12px;margin-top:16px}
+
+/* ════════════════════════════════════════════════════════════
+   14) الشيت المنبثق (Sheet) — حشوة أكبر
+   ════════════════════════════════════════════════════════════ */
+.sheet{padding:12px 22px 32px}
+.sheet-title{font-size:19px;margin-bottom:18px}
+
+/* ════════════════════════════════════════════════════════════
+   15) الهيدر — تبسيط
+   ════════════════════════════════════════════════════════════ */
+.hdr{padding:calc(var(--safe-t) + 10px) 14px 10px}
+.hdr-gem{width:38px;height:38px;font-size:17px}
+.hdr-title{font-size:21px}
+.hdr-actions{gap:6px}
+.hdr-btn{width:42px;height:42px}
+.hdr-btn svg{width:17px;height:17px}
+
+/* ════════════════════════════════════════════════════════════
+   16) عناوين الصفحات — تسلسل بصري أوضح
+   ════════════════════════════════════════════════════════════ */
+.pg-head{margin-bottom:var(--section-gap);gap:12px}
+.pg-title{font-size:27px}
+.pg-sub{font-size:13px;margin-top:4px}
+@media (min-width:768px){
+  .pg-title{font-size:31px}
+  .pg-sub{font-size:14px}
+}
+
+/* ════════════════════════════════════════════════════════════
+   17) تقليل عدد العناصر المتراصة في البطاقات المزدحمة
+   ════════════════════════════════════════════════════════════ */
+
+/* الأزرار: حشوة أكثر وأكثر راحة */
+.btn{padding:11px 20px;font-size:14.5px}
+.btn-sm{padding:7px 14px;font-size:12.5px}
+.btn-ghost{font-size:13px}
+
+/* الـ Toast: أبسط وأقل بروزاً */
+#toastWrap{bottom:calc(102px + var(--safe-b));right:14px;gap:8px}
+.toast{padding:12px 14px;max-width:320px}
+.toast-msg{font-size:12.5px}
+
+/* ════════════════════════════════════════════════════════════
+   18) الشاشات الصغيرة جداً (≤360px) — تقليل الكثافة
+   ════════════════════════════════════════════════════════════ */
+@media (max-width:360px){
+  :root{
+    --section-gap:22px;
+    --item-gap:12px;
+    --pad-card:18px;
+    --pad-hero:20px;
+  }
+  .page{padding:14px 11px 20px}
+  .pg-title{font-size:23px}
+  .verse-text{font-size:21px;line-height:2}
+  .ayah-text{font-size:23px;line-height:2.2}
+  .timer-num{font-size:36px}
+  .tasbeeh-outer{width:152px;height:152px}
+  .hadith-text{font-size:16px}
+  .prayer-next-name{font-size:24px}
+  .stat-pill{padding:10px 8px}
+  .stat-val{font-size:16px}
+  .stat-icon{font-size:16px}
+  .stat-lbl{font-size:9.5px}
+  .quick-btn{padding:12px 6px}
+  .quick-icon{width:38px;height:38px}
+  .quick-lbl{font-size:11px}
+  .asma-grid,.ach-grid{grid-template-columns:repeat(2,1fr)}
+  .kh-types{grid-template-columns:repeat(2,1fr)}
+  .mood-grid-pro{grid-template-columns:repeat(2,1fr)}
+  .lib-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .ruhani-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .verse-hero,.prayer-hero{padding:18px 16px}
+  .hadith-card,.mood-card-pro,.tasbeeh-card-pro{padding:16px 14px}
+  .adhkar-card{padding:14px 12px}
+  .lib-tile{padding:14px 12px}
+  .ruhani-tile{padding:16px 10px}
+  .profile-hero{padding:20px 16px}
+  .profile-ava{width:70px;height:70px;font-size:30px}
+}
+
+/* ════════════════════════════════════════════════════════════
+   19) الشاشات المتوسطة والكبيرة — استفادة من المساحة
+   ════════════════════════════════════════════════════════════ */
+@media (min-width:768px){
+  :root{
+    --section-gap:32px;
+    --item-gap:18px;
+    --pad-card:26px;
+    --pad-hero:30px;
+  }
+  .stats-strip{gap:14px}
+  .stat-pill{padding:16px 14px}
+  .stat-val{font-size:24px}
+  .stat-icon{font-size:24px}
+  .verse-text{font-size:28px;line-height:2.2}
+  .prayer-grid{gap:12px}
+  .prayer-pill{padding:14px 10px}
+  .hadith-text{font-size:19px;line-height:2.1}
+  .quick-btn{padding:18px 10px}
+  .quick-icon{width:48px;height:48px}
+  .quick-lbl{font-size:12.5px}
+  .lib-tile{padding:22px 20px}
+  .lib-tile-icon{width:52px;height:52px}
+  .lib-tile-name{font-size:17px}
+  .ruhani-tile{padding:24px 14px}
+  .ruhani-tile-icon{width:60px;height:60px;font-size:30px}
+}
+
+/* ════════════════════════════════════════════════════════════
+   20) تقليل عدد الظلال المتداخلة على البطاقات الصغيرة
+   ════════════════════════════════════════════════════════════ */
+.stat-pill,.quick-btn,.adhkar-tab,.lib-tile,.ruhani-tile,
+.asma-card,.ach-card,.fiqh-chapter-btn,.story-card,
+.seerah-family-card,.mood-opt-pro,.kh-type,.dur-btn{
+  box-shadow:none;
+  border:1px solid var(--border);
+}
+/* إعادة الظل فقط عند الـ hover */
+.stat-pill:hover,.quick-btn:hover,.adhkar-tab.on,.lib-tile:hover,
+.ruhani-tile:hover,.asma-card:hover,.ach-card.unlocked:hover,
+.fiqh-chapter-btn:hover,.story-card:hover,.seerah-family-card:hover{
+  box-shadow:var(--sh2);
+}
+/* العناصر النشطة (المحدّدة) تظهر بظل خفيف */
+.adhkar-tab.on,.kh-type.on,.dur-btn.on,.nav-i.on{
+  box-shadow:var(--sh1);
+}
+
+/* ════════════════════════════════════════════════════════════
+   21) تخفيف حركة الدخول المتدرّجة لتسريع الإحساس بالاستقرار
+   ════════════════════════════════════════════════════════════ */
+.page.on > *{animation-duration:.35s}
+.page.on > *:nth-child(n+5){animation-delay:.08s}
+.page.on > *:nth-child(n+8){animation-delay:.04s}
+
+/* ════════════════════════════════════════════════════════════
+   22) شريط التنقّل السفلي — تباعد أوضح قليلاً
+   ════════════════════════════════════════════════════════════ */
+.bnav{padding:8px 8px}
+.nav-i{padding:8px 4px;gap:4px}
+.nav-i span{font-size:10px;font-weight:700}
+.nav-i svg{width:20px;height:20px}
+.nav-center{width:54px;height:54px;margin-top:-24px}
+.nav-center svg{width:20px;height:20px}
+.nav-center span{font-size:9px}
+
+/* ════════════════════════════════════════════════════════════
+   23) قائمة السور (Sheet) — عناصر أكثر تنفّساً
+   ════════════════════════════════════════════════════════════ */
+.surah-list-item{padding:12px 14px;gap:12px}
+.sli-num{width:36px;height:36px;font-size:14px}
+.sli-name{font-size:14.5px}
+.sli-meta{font-size:11.5px}
+
+/* ════════════════════════════════════════════════════════════
+   24) نتائج البحث — تباعد أوضح
+   ════════════════════════════════════════════════════════════ */
+.search-result{padding:14px;margin-bottom:var(--item-gap)}
+
+/* ════════════════════════════════════════════════════════════
+   25) إعادة ضبط الحشوات الداخلية للنصوص
+   ════════════════════════════════════════════════════════════ */
+.kh-guidance-extra{padding:14px;margin-top:14px}
+.kh-guidance-extra h4{font-size:13px;margin-bottom:8px}
+.kh-guidance-extra li{font-size:13px;line-height:2}
+
+.reminder-settings{padding:18px}
+.reminder-row{padding:14px 0}
+
+.context-card{padding:14px;margin-bottom:12px}
+
+/* ════════════════════════════════════════════════════════════
+   26) إيقاف بعض الحركات الدائمة المُتعبة للعين
+   ════════════════════════════════════════════════════════════ */
+/* تقليل سرعة دوران الأنماط الزخرفية لتكون أكثر هدوءاً */
+.verse-hero::before{animation-duration:200s}
+.prayer-hero::before{animation:none;opacity:.5}
+.profile-ava::after{animation-duration:60s}
+.splash-gem::after{animation-duration:5s}
+
+/* تقليل شدّة نبض الـ glow */
+@keyframes glowPulse{0%,100%{box-shadow:0 0 0 0 rgba(31,151,99,.25)}50%{box-shadow:0 0 0 6px rgba(31,151,99,0)}}
+
+/* ════════════════════════════════════════════════════════════
+   27) تحسين قراءة النصوص العربية الطويلة عبر الموقع
+   ════════════════════════════════════════════════════════════ */
+.hadith-text,.ayah-tafsir,.kh-extra,.story-sec-body,
+.fiqh-answer,.adhkar-ben,.mood-resp-text{
+  line-height:1.95;
+  word-spacing:.02em;
+}
+
+/* ════════════════════════════════════════════════════════════
+   28) تنسيق صفّ الإجراءات في صفحة الخلوة
+   ════════════════════════════════════════════════════════════ */
+.kh-extras{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:360px){
+  .kh-extras{grid-template-columns:1fr 1fr}
+  .kh-extra:last-child{grid-column:1/-1}
+}
+
+/* ════════════════════════════════════════════════════════════
+   29) تنسيق شريط الإجراءات في صفحة القرآن
+   ════════════════════════════════════════════════════════════ */
+.quran-actions{display:flex;gap:8px;flex-wrap:wrap}
+.qa-btn{flex:1;min-width:max-content;justify-content:center}
+
+/* ════════════════════════════════════════════════════════════
+   30) فصل بصري أوضح بين البطاقة الأخيرة وشريط التنقّل
+   ════════════════════════════════════════════════════════════ */
+.page > *:last-child{margin-bottom:0}
+.page::after{
+  content:'';display:block;height:8px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   31) تخفيف تدرّجات البطاقات الملوّنة المتراصة
+   ════════════════════════════════════════════════════════════ */
+/* بطاقة آية اليوم وبطاقة الصلاة متجاورتان بصرياً — نضيف فاصلاً أوضح */
+.verse-hero + .prayer-hero,
+.prayer-hero + .hadith-card,
+.hadith-card + .mood-card-pro{
+  margin-top:4px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   32) تلميح بصري لطيف بين الأقسام في الرئيسية
+   ════════════════════════════════════════════════════════════ */
+#pg-home > .sec-label{
+  position:relative;
+}
+#pg-home > .sec-label::before{
+  width:3px;height:18px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   33) تقليل التدرّجات المتكرّرة على الأزرار الصغيرة
+   ════════════════════════════════════════════════════════════ */
+.quick-icon,.lib-tile-icon,.ruhani-tile-icon,.picker-icon-wrap,
+.stat-pill,.setting-icon,.sli-num,.adhkar-tab.on,.kh-type.on,
+.dur-btn.on,.nav-i.on,.pstat,.ach-card.unlocked,.asma-card:hover{
+  background:var(--c-primary-bg);
+}
+.kh-type.on,.dur-btn.on,.adhkar-tab.on{
+  background:var(--c-primary);
+  color:#fff;
+}
+
+/* ════════════════════════════════════════════════════════════
+   34) تحسين العرض على الديسكتوب (grid layout)
+   ════════════════════════════════════════════════════════════ */
+@media (min-width:1024px){
+  .page{padding:0 8px}
+  .stats-strip{gap:18px}
+  .stat-pill{padding:18px 16px}
+  .verse-hero{padding:32px 28px}
+  .prayer-hero{padding:30px 26px}
+  .hadith-card{padding:26px 24px}
+  .lib-grid{gap:18px}
+  .lib-tile{padding:26px 22px}
+  .ruhani-grid{gap:18px}
+  .ruhani-tile{padding:28px 18px}
+  .asma-grid{gap:14px}
+  .ach-grid{gap:14px}
+}
+
+/* ════════════════════════════════════════════════════════════
+   35) تقليل كثافة العناصر داخل البطاقة المزدحمة (mood)
+   ════════════════════════════════════════════════════════════ */
+.mood-card-pro::before{
+  width:160px;height:160px;
+  opacity:.35;
+}
+.mood-resp-pro{
+  padding:12px 14px;
+  margin-top:12px;
+  font-size:12.5px;
+  line-height:1.75;
+}
+.mood-resp-pro.show{padding:12px 14px;margin-top:12px}
+.mood-resp-title{font-size:13.5px;margin-bottom:6px}
+.mood-resp-text{font-size:12.5px;margin-bottom:6px}
+.mood-resp-ayah{font-size:14.5px;padding:6px 10px}
+
+/* ════════════════════════════════════════════════════════════
+   36) البطاقة المميزة "الجديد" — تهدئة بروزها
+   ════════════════════════════════════════════════════════════ */
+.lib-tile-new::after{
+  font-size:9px;
+  padding:2px 7px;
+  top:-5px;
+  left:6px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   37) ضبط دقيق للنسب في صفحة الخلوة
+   ════════════════════════════════════════════════════════════ */
+.timer-ring-wrap{width:210px;height:210px}
+.timer-num{font-size:42px}
+.kh-start{padding:14px 28px;font-size:16px}
+
+/* ════════════════════════════════════════════════════════════
+   38) تقليل التدرّج على البطاقات الصغيرة داخل الأقسام
+   ════════════════════════════════════════════════════════════ */
+.adhkar-card,
+.mood-card-pro,
+.tasbeeh-card-pro,
+.hadith-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+}
+/* الحفاظ على تدرّج لطيف فقط على hover */
+.adhkar-card:hover,
+.mood-card-pro:hover,
+.tasbeeh-card-pro:hover{
+  background:var(--surface2);
+}
+
+/* ════════════════════════════════════════════════════════════
+   39) تقليل لمعان "shine" على الأزرار الأساسية
+   ════════════════════════════════════════════════════════════ */
+.btn-primary::after{transition:transform .9s var(--ease-out)}
+.btn-primary::after{opacity:.7}
+
+/* ════════════════════════════════════════════════════════════
+   40) تلميح "اضغط على الآية لعرض التفسير" — أبسط وأخفت
+   ════════════════════════════════════════════════════════════ */
+.verse-hero > div:last-child{
+  font-size:10.5px;
+  opacity:.55;
+  margin-top:6px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   41) ضبط دقيق لبطاقة الكاتب / الصحابي / النبي
+   ════════════════════════════════════════════════════════════ */
+.story-card{margin-bottom:0}
+.seerah-family-card{padding:18px 16px;margin-bottom:var(--item-gap)}
+
+/* ════════════════════════════════════════════════════════════
+   42) تحسين العرض الابتدائي قبل تحميل المحتوى
+   ════════════════════════════════════════════════════════════ */
+.spinner{margin:48px auto}
+
+/* ════════════════════════════════════════════════════════════
+   43) ضبط دقيق لبطاقة الراديو
+   ════════════════════════════════════════════════════════════ */
+.home-radio-card .radio-np-name{font-size:13px}
+.home-radio-card .radio-np-country{font-size:10.5px}
+.home-radio-card .radio-viz{height:22px}
+.home-radio-card .radio-viz-bar{width:2.5px}
+
+/* ════════════════════════════════════════════════════════════
+   44) ضبط الكثافة على شاشات 480px–768px
+   ════════════════════════════════════════════════════════════ */
+@media (min-width:481px) and (max-width:767px){
+  .home-ruhani-row{grid-template-columns:repeat(4,1fr)}
+  .quick-grid{grid-template-columns:repeat(4,1fr)}
+  .lib-grid{grid-template-columns:repeat(3,1fr)}
+  .ruhani-grid{grid-template-columns:repeat(3,1fr)}
+  .asma-grid{grid-template-columns:repeat(4,1fr)}
+  .ach-grid{grid-template-columns:repeat(4,1fr)}
+}
+
+/* ════════════════════════════════════════════════════════════
+   45) إزالة الحدود المزدوجة على البطاقات المتداخلة
+   ════════════════════════════════════════════════════════════ */
+.card .card,
+.card .adhkar-card,
+.card .stat-pill{
+  border:1px solid var(--border);
+}
+
+/* ════════════════════════════════════════════════════════════
+   46) ضبط دقيق لتباين النصوص الثانوية على البطاقات الملونة
+   ════════════════════════════════════════════════════════════ */
+.verse-hero .verse-ref,
+.prayer-hero .prayer-next-label,
+.prayer-hero .prayer-next-time{
+  opacity:.88;
+}
+
+/* ════════════════════════════════════════════════════════════
+   47) تبسيط أيقونات الـ svg داخل الأزرار الصغيرة
+   ════════════════════════════════════════════════════════════ */
+.hdr-btn svg,.quick-icon svg,.lib-tile-icon svg,
+.ruhani-tile-icon svg,.picker-icon-wrap svg,.ayah-btn svg,
+.setting-icon svg,.font-btn svg,.audio-bar-play svg,
+.audio-bar-stop svg,.nav-i svg,.nav-center svg{
+  stroke-width:1.8;
+}
+
+/* ════════════════════════════════════════════════════════════
+   48) تحسين معالجة النص الطويل في الفقه / السيرة
+   ════════════════════════════════════════════════════════════ */
+.fiqh-answer,.story-sec-body p,.adhkar-ben{
+  text-align:justify;
+  text-justify:inter-word;
+}
+
+/* ════════════════════════════════════════════════════════════
+   49) ضبط دقيق لحجم خط العناوين الفرعية داخل البطاقات
+   ════════════════════════════════════════════════════════════ */
+.kh-guidance-extra h4,
+.adhkar-group-title,
+.lib-group-title,
+.ruhani-section-h,
+.fiqh-cat-title{
+  letter-spacing:.3px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   50) تحسينات إضافية على البطاقات في الرئيسية
+   ════════════════════════════════════════════════════════════ */
+
+/* بطاقة الختمة السريعة: تبسيط */
+.khatmah-home-empty,.khatmah-home-card{
+  padding:14px 16px;
+  margin-bottom:var(--section-gap);
+}
+.khatmah-home-empty-icon{
+  width:50px;height:50px;font-size:30px;
+}
+.khatmah-home-empty-title{font-size:14.5px}
+.khatmah-home-empty-desc{font-size:11.5px}
+
+/* بطاقات Mini الروحانية: حشوة أكبر */
+.dua-home-card,.bustan-home-mini,.tawbah-home-mini,.focus-home-mini{
+  padding:14px 12px!important;
+}
+.dua-home-icon{font-size:24px}
+.dua-home-title{font-size:11.5px}
+
+/* ════════════════════════════════════════════════════════════
+   51) تخفيف التدرّج الخلفي للبطاقات الملوّنة الكبيرة
+   ════════════════════════════════════════════════════════════ */
+.verse-hero,.prayer-hero{
+  background:var(--grad-soft);
+}
+/* الحفاظ على التدرّج الكامل فقط عند hover */
+.verse-hero:hover,.prayer-hero:hover{
+  background:var(--grad);
+}
+
+/* ════════════════════════════════════════════════════════════
+   52) ضبط دقيق لشريط التقدّم في الأذكار
+   ════════════════════════════════════════════════════════════ */
+.adhkar-foot{padding-top:10px;border-top:1px dashed var(--border);margin-top:10px}
+
+/* ════════════════════════════════════════════════════════════
+   53) تأكيد عدم وجود تسرّب أفقي
+   ════════════════════════════════════════════════════════════ */
+.page,.card,.verse-hero,.prayer-hero,
+.hadith-card,.mood-card-pro,.tasbeeh-card-pro,
+.home-radio-card,.adhkar-card,.lib-tile,.ruhani-tile,
+.asma-card,.ach-card,.fiqh-item,.fiqh-chapter-btn,
+.story-card,.seerah-family-card,.khatmah-home-empty,
+.khatmah-home-card,.dua-home-card,.context-card,
+.reminder-settings,.settings-card,.profile-hero{
+  max-width:100%;
+  overflow-wrap:break-word;
+  word-wrap:break-word;
+}
+
+/* نهاية الملف */
